@@ -11,15 +11,18 @@ wn = trtl.Screen()
 # Variables
 painter = trtl.Turtle()
 writer = trtl.Turtle()
+scorekeeper = trtl.Turtle()
 font = ("Arial", 50, "bold")
 font_two = ("Arial", 50, "normal")
 font_three = ("Arial", 25, "normal")
 biology_list = ["What are the parts of a cell called?", "What gives blood it's red color?", "How many bones are in the body?"]
 music_list = ["What does a staccato mean?", "How many beats does a whole note have?", "What is the sharp version of D flat?"]
-bio_length = len(biology_list)
-bio_index = rand.randint(0,bio_length)
 mus_length = len(music_list)
-mus_index = rand.randint(0,mus_length)
+bio_length = len(biology_list)
+index = mus_length - 1
+index_B = bio_length - 1
+score = 0
+x = 0
 
 
 # Background Things
@@ -41,53 +44,68 @@ def make_background(painter):
 def category_Bio():
     painter.clear()
     x = 0
-    while x < 3:
-        writer.penup()
-        question = biology_list.pop(bio_index)
-        writer.goto(-375, 200)
-        writer.write(question, font=font)
-        Bio_Questions()
-
-        writer.clear()
-        x += 1
-
-
-
-
+    #while x < 3:
+    writer.penup()
+    question = biology_list.pop(index_B)
+    writer.goto(-400, 200)
+    writer.write(question, font=font_three)
+    Bio_Questions()
+    wn.onkeypress(score_change, "b")
 
 def category_Mus():
     painter.clear()
     x = 0
     while x < 3:
         writer.penup()
-        question_two = music_list.pop(mus_index)
-        writer.goto(-375,200)
-        writer.write(question_two, font=font)
+        question_two = music_list.pop(index)
+        writer.goto(-400,200)
+        writer.write(question_two, font=font_three)
         Mus_Questions()
-        if a
-        writer.clear()
-        x += 1
+        wn.onkeypress(score_change, "c")
+
+def score_change():
+    global score, x
+    scorekeeper.penup()
+    scorekeeper.goto(225,250)
+    score += 1
+    scorekeeper.clear()
+    scorekeeper.write(score, font=font)
+    x += 1
 
 def Mus_Questions():
     writer.goto(-375,50)
-    writer.write("A. A short note", font=font_two)
-    writer.goto(-375, 25)
-    writer.write("B. Four beats", font=font_two)
-    writer.goto(-375, 0)
-    writer.write("C. C sharp", font=font_two)
+    writer.write("A. A short note", font=font_three)
+    writer.goto(-375, -25)
+    writer.write("B. Four beats", font=font_three)
+    writer.goto(-375, -100)
+    writer.write("C. C sharp", font=font_three)
 
 def Bio_Questions():
     writer.goto(-375,50)
-    writer.write("A. Organelles", font=font_two)
-    writer.goto(-375, 25)
-    writer.write("B. Hemoglobin", font=font_two)
-    writer.goto(-375, 0)
-    writer.write("C. 206", font=font_two)
+    writer.write("A. Organelles", font=font_three)
+    writer.goto(-375, -25)
+    writer.write("B. 206", font=font_three)
+    writer.goto(-375, -100)
+    writer.write("C. Hemoglobin", font=font_three)
 
+def end():
+    global score, font
+    writer.clear()
+    painter.goto(-300, 200)
+    if score == 3:
+        painter.write("Congrats! You got every question correct.", font=font)
+    elif score >= 1:
+        painter.write("Congrats! You got some of the questions correct", font=font)
+    else:
+        painter.write("You got none od the questions rights.", font=font)
+
+
+scorekeeper.hideturtle()
 writer.hideturtle()
 make_background(painter)
 wn.onkeypress(category_Bio, "a")
 wn.onkeypress(category_Mus, "b")
+end()
 
 
 
