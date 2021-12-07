@@ -1,9 +1,10 @@
 '''
 Ensure all requirements are complete
-Create leaderboard
+Create leaderboard (Maybe)
 Decorate
 '''
 import turtle as trtl
+import random as rand
 wn = trtl.Screen()
 
 # Variables
@@ -21,6 +22,7 @@ bio_length = len(biology_list)
 index = mus_length - 1
 index_B = bio_length - 1
 score = 0
+color_list = ["blue", "White", "black", "Gray", "dark blue", "lavender"]
 question_number = 0
 question_number_mus = 0
 
@@ -71,7 +73,6 @@ def category_Mus():
 
 def bio_two():
     global question_number
-    painter.clear()
     bio_length = len(biology_list)
     index_B = bio_length - 1
     writer.clear()
@@ -87,7 +88,6 @@ def bio_two():
 
 def mus_two():
     global question_number_mus
-    painter.clear()
     mus_length = len(music_list)
     index_A = mus_length - 1
     writer.clear()
@@ -102,7 +102,6 @@ def mus_two():
 
 def mus_three():
     global question_number_mus, mus_length
-    painter.clear()
     writer.clear()
     writer.goto(-400, 200)
     writer.write("What does a staccato mean?", font=font_four)
@@ -114,7 +113,6 @@ def mus_three():
 
 def bio_three():
     global question_number
-    painter.clear()
     writer.clear()
     writer.goto(-400, 200)
     writer.write("What are the parts of a cell called?", font=font_four)
@@ -125,15 +123,22 @@ def bio_three():
     wn.onkeypress(end, "b")
 
 def score_change():
-    global score
+    global score, color_list
+    choice = rand.choice(color_list)
+    if score <= 1:
+        painter.pensize(5)
+        painter.pencolor(choice)
+        painter.goto(270,240)
+        painter.pendown()
+        painter.circle(50,360,10)
+        painter.penup()
     scorekeeper.penup()
+    scorekeeper.pencolor(choice)
     scorekeeper.goto(250,250)
     score += 1
     scorekeeper.clear()
     scorekeeper.write(score, font=font)
-    # No error with score
     if question_number == 1:
-
         bio_two()
     elif question_number_mus == 1:
         mus_two()
@@ -166,10 +171,11 @@ def Bio_Questions():
 def end():
     global score, font
     writer.clear()
+    painter.clear()
     scorekeeper.clear()
     scorekeeper.penup()
     writer.penup()
-    scorekeeper.goto(-100, 100)
+    scorekeeper.goto(-110, 100)
     scorekeeper.write("Your Score: " + str(score), font=font_four)
     if score == 3:
         painter.goto(-300, 200)
