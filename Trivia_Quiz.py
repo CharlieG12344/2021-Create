@@ -1,6 +1,5 @@
 '''
 Ensure all requirements are complete
-Create leaderboard (Maybe)
 Decorate
 '''
 import turtle as trtl
@@ -23,8 +22,10 @@ index = mus_length - 1
 index_B = bio_length - 1
 score = 0
 color_list = ["blue", "White", "black", "Gray", "dark blue", "lavender"]
-question_number = 0
+question_number = 4
 question_number_mus = 0
+number_b = 0
+number = 0
 
 # Background Things
 wn.bgcolor("light blue")
@@ -44,9 +45,37 @@ def make_background(painter):
 # Methods
 
 def category_Bio():
-    global question_number
-    painter.clear()
-    writer.penup()
+    global question_number, number
+    while question_number > 3:
+        painter.clear()
+        writer.clear()
+        writer.penup()
+        question = biology_list.pop()
+        writer.goto(-400, 200)
+        writer.write(question, font=font_four)
+        Bio_Questions()
+        if question_number == 4:
+            question_number -= 1
+            number += 1
+            wn.onkeypress(score_change, "b")
+            wn.onkeypress(bio_score, "c")
+            wn.onkeypress(bio_score, "a")
+            wn.onkeypress(bio_score, "d")
+        if question_number == 5:
+            question_number -= 2
+            number += 1
+            wn.onkeypress(score_change, "c")
+            wn.onkeypress(bio_score, "b")
+            wn.onkeypress(bio_score, "a")
+            wn.onkeypress(bio_score, "d")
+        if question_number == 6:
+            number += 1
+            wn.onkeypress(score_change, "a")
+            wn.onkeypress(end, "c")
+            wn.onkeypress(end, "b")
+            wn.onkeypress(end, "d")
+
+    '''
     question = biology_list.pop(index_B)
     writer.goto(-400, 200)
     writer.write(question, font=font_four)
@@ -55,6 +84,8 @@ def category_Bio():
     wn.onkeypress(score_change, "b")
     wn.onkeypress(bio_two, "c")
     wn.onkeypress(bio_two, "a")
+    wn.onkeypress(bio_two, "d")
+    '''
 
 def category_Mus():
     global question_number_mus
@@ -70,7 +101,8 @@ def category_Mus():
     wn.onkeypress(score_change, "c")
     wn.onkeypress(mus_two, "b")
     wn.onkeypress(mus_two, "a")
-
+    wn.onkeypress(mus_two, "d")
+'''
 def bio_two():
     global question_number
     bio_length = len(biology_list)
@@ -84,7 +116,8 @@ def bio_two():
     wn.onkeypress(score_change, "c")
     wn.onkeypress(bio_three, "b")
     wn.onkeypress(bio_three, "a")
-
+    wn.onkeypress(bio_three, "d")
+'''
 
 def mus_two():
     global question_number_mus
@@ -99,6 +132,7 @@ def mus_two():
     wn.onkeypress(score_change, "b")
     wn.onkeypress(mus_three, "c")
     wn.onkeypress(mus_three, "a")
+    wn.onkeypress(mus_three, "d")
 
 def mus_three():
     global question_number_mus, mus_length
@@ -110,7 +144,8 @@ def mus_three():
     wn.onkeypress(score_change, "a")
     wn.onkeypress(end, "c")
     wn.onkeypress(end, "b")
-
+    wn.onkeypress(end, "d")
+'''
 def bio_three():
     global question_number
     writer.clear()
@@ -121,6 +156,17 @@ def bio_three():
     wn.onkeypress(score_change, "a")
     wn.onkeypress(end, "c")
     wn.onkeypress(end, "b")
+    wn.onkeypress(end, "d")
+'''
+def bio_score ():
+    global question_number, number_b
+    if number_b == 1:
+        question_number += 1
+    if number_b == 2:
+        question_number += 2
+    category_Bio()
+
+
 
 def score_change():
     global score, color_list
@@ -138,17 +184,19 @@ def score_change():
     score += 1
     scorekeeper.clear()
     scorekeeper.write(score, font=font)
-    if question_number == 1:
-        bio_two()
-    elif question_number_mus == 1:
+    if number_b == 1:
+        question_number += 1
+        category_Bio()
+    elif number == 1:
         mus_two()
-    elif question_number == 2:
-        bio_three()
-    elif question_number_mus == 2:
+    elif number_b == 2:
+        question_number += 2
+        category_Bio()
+    elif number == 2:
         mus_three()
-    elif question_number == 3:
+    elif number_b == 3:
         end()
-    elif question_number_mus == 3:
+    elif number == 3:
         end()
 
 
@@ -159,6 +207,8 @@ def Mus_Questions():
     writer.write("B. Four beats", font=font_three)
     writer.goto(-375, 0)
     writer.write("C. C sharp", font=font_three)
+    writer.goto(-375, -50)
+    writer.write("D. Other", font=font_three)
 
 def Bio_Questions():
     writer.goto(-375,100)
@@ -167,6 +217,8 @@ def Bio_Questions():
     writer.write("B. 206", font=font_three)
     writer.goto(-375, 0)
     writer.write("C. Hemoglobin", font=font_three)
+    writer.goto(-375, -50)
+    writer.write("D. Other", font=font_three)
 
 def end():
     global score, font
@@ -176,7 +228,7 @@ def end():
     scorekeeper.penup()
     writer.penup()
     scorekeeper.goto(-110, 100)
-    scorekeeper.write("Your Score: " + str(score), font=font_four)
+    scorekeeper.write("Your Score: " + str(score) + " / 3", font=font_four)
     if score == 3:
         painter.goto(-300, 200)
         painter.write("Congrats! You got every question correct.", font=font_three)
