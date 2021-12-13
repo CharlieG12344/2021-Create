@@ -22,8 +22,8 @@ index = mus_length - 1
 index_B = bio_length - 1
 score = 0
 color_list = ["blue", "White", "black", "Gray", "dark blue", "lavender"]
-question_number = 4
-question_number_mus = 0
+question_bio = 4
+question_mus = 4
 number_b = 0
 number = 0
 
@@ -45,131 +45,91 @@ def make_background(painter):
 # Methods
 
 def category_Bio():
-    global question_number, number
-    while question_number > 3:
+    global question_bio, number_b
+    if number_b <= 0:
         painter.clear()
+    while question_bio > 3:
         writer.clear()
         writer.penup()
+        number_b += 1
         question = biology_list.pop()
         writer.goto(-400, 200)
         writer.write(question, font=font_four)
         Bio_Questions()
-        if question_number == 4:
-            question_number -= 1
-            number += 1
+        if question_bio == 4:
+            question_bio -= 1
             wn.onkeypress(score_change, "b")
             wn.onkeypress(bio_score, "c")
             wn.onkeypress(bio_score, "a")
             wn.onkeypress(bio_score, "d")
-        if question_number == 5:
-            question_number -= 2
-            number += 1
+        if question_bio == 5:
+            question_bio -= 2
             wn.onkeypress(score_change, "c")
             wn.onkeypress(bio_score, "b")
             wn.onkeypress(bio_score, "a")
             wn.onkeypress(bio_score, "d")
-        if question_number == 6:
-            number += 1
+        if question_bio == 6:
             wn.onkeypress(score_change, "a")
             wn.onkeypress(end, "c")
             wn.onkeypress(end, "b")
             wn.onkeypress(end, "d")
 
-    '''
-    question = biology_list.pop(index_B)
-    writer.goto(-400, 200)
-    writer.write(question, font=font_four)
-    Bio_Questions()
-    question_number += 1
-    wn.onkeypress(score_change, "b")
-    wn.onkeypress(bio_two, "c")
-    wn.onkeypress(bio_two, "a")
-    wn.onkeypress(bio_two, "d")
-    '''
 
 def category_Mus():
-    global question_number_mus
-    mus_length = len(music_list)
-    index = mus_length - 1
-    painter.clear()
-    writer.penup()
-    question_two = music_list.pop(index)
-    writer.goto(-400,200)
-    writer.write(question_two, font=font_four)
-    Mus_Questions()
-    question_number_mus += 1
-    wn.onkeypress(score_change, "c")
-    wn.onkeypress(mus_two, "b")
-    wn.onkeypress(mus_two, "a")
-    wn.onkeypress(mus_two, "d")
-'''
-def bio_two():
-    global question_number
-    bio_length = len(biology_list)
-    index_B = bio_length - 1
-    writer.clear()
-    question = biology_list.pop(index_B)
-    writer.goto(-400, 200)
-    writer.write(question, font=font_four)
-    Bio_Questions()
-    question_number += 1
-    wn.onkeypress(score_change, "c")
-    wn.onkeypress(bio_three, "b")
-    wn.onkeypress(bio_three, "a")
-    wn.onkeypress(bio_three, "d")
-'''
+    global question_mus, number
+    if number <= 0:
+        painter.clear()
+    while question_mus > 3:
+        writer.clear()
+        writer.penup()
+        number += 1
+        question = music_list.pop()
+        writer.goto(-400, 200)
+        writer.write(question, font=font_four)
+        Mus_Questions()
+        if question_mus == 4:
+            question_mus -= 1
+            wn.onkeypress(score_change, "c")
+            wn.onkeypress(mus_score, "b")
+            wn.onkeypress(mus_score, "a")
+            wn.onkeypress(mus_score, "d")
+        if question_mus == 5:
+            question_mus -= 2
+            wn.onkeypress(score_change, "b")
+            wn.onkeypress(mus_score, "a")
+            wn.onkeypress(mus_score, "c")
+            wn.onkeypress(mus_score, "d")
+        if question_mus == 6:
+            wn.onkeypress(score_change, "a")
+            wn.onkeypress(end, "c")
+            wn.onkeypress(end, "b")
+            wn.onkeypress(end, "d")
 
-def mus_two():
-    global question_number_mus
-    mus_length = len(music_list)
-    index_A = mus_length - 1
-    writer.clear()
-    question_two = music_list.pop(index_A)
-    writer.goto(-400, 200)
-    writer.write(question_two, font=font_four)
-    Mus_Questions()
-    question_number_mus += 1
-    wn.onkeypress(score_change, "b")
-    wn.onkeypress(mus_three, "c")
-    wn.onkeypress(mus_three, "a")
-    wn.onkeypress(mus_three, "d")
 
-def mus_three():
-    global question_number_mus, mus_length
-    writer.clear()
-    writer.goto(-400, 200)
-    writer.write("What does a staccato mean?", font=font_four)
-    Mus_Questions()
-    question_number_mus += 1
-    wn.onkeypress(score_change, "a")
-    wn.onkeypress(end, "c")
-    wn.onkeypress(end, "b")
-    wn.onkeypress(end, "d")
-'''
-def bio_three():
-    global question_number
-    writer.clear()
-    writer.goto(-400, 200)
-    writer.write("What are the parts of a cell called?", font=font_four)
-    Bio_Questions()
-    question_number += 1
-    wn.onkeypress(score_change, "a")
-    wn.onkeypress(end, "c")
-    wn.onkeypress(end, "b")
-    wn.onkeypress(end, "d")
-'''
 def bio_score ():
-    global question_number, number_b
+    global question_bio, number_b
     if number_b == 1:
-        question_number += 1
+        question_bio += 2
+        category_Bio()
     if number_b == 2:
-        question_number += 2
-    category_Bio()
+        question_bio += 3
+        category_Bio()
+    else:
+        end()
 
-
+def mus_score ():
+    global question_mus, number
+    if number == 1:
+        question_mus += 2
+        category_Mus()
+    if number == 2:
+        question_mus += 3
+        category_Mus()
+    else:
+        end()
 
 def score_change():
-    global score, color_list
+    global score, color_list, question_bio, question_mus
     choice = rand.choice(color_list)
     if score <= 1:
         painter.pensize(5)
@@ -185,18 +145,22 @@ def score_change():
     scorekeeper.clear()
     scorekeeper.write(score, font=font)
     if number_b == 1:
-        question_number += 1
+        question_bio += 2
         category_Bio()
     elif number == 1:
-        mus_two()
+        question_mus += 2
+        category_Mus()
     elif number_b == 2:
-        question_number += 2
+        question_bio += 3
         category_Bio()
     elif number == 2:
-        mus_three()
+        question_mus += 3
+        category_Mus()
     elif number_b == 3:
         end()
     elif number == 3:
+        end()
+    else:
         end()
 
 
