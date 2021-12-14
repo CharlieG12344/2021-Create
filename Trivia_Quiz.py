@@ -1,7 +1,3 @@
-'''
-Ensure all requirements are complete
-Decorate
-'''
 import turtle as trtl
 import random as rand
 wn = trtl.Screen()
@@ -16,12 +12,8 @@ font_three = ("Arial", 25, "normal")
 font_four = ("Arial", 25, "bold")
 biology_list = ["What are the parts of a cell called?", "What gives blood it's red color?", "How many bones are in the body?"]
 music_list = ["What does a staccato mean?", "How many beats does a whole note have?", "What is the sharp version of D flat?"]
-mus_length = len(music_list)
-bio_length = len(biology_list)
-index = mus_length - 1
-index_B = bio_length - 1
 score = 0
-color_list = ["blue", "White", "black", "Gray", "dark blue", "lavender"]
+color_list = ["blue", "white", "black", "gray", "dark blue", "lavender"]
 question_bio = 4
 question_mus = 4
 number_b = 0
@@ -43,38 +35,68 @@ def make_background(painter):
     painter.write("Press b to choose: Music", font=font_two)
 
 # Methods
-
-def category_Bio():
-    global question_bio, number_b
-    if number_b <= 0:
+def category_Bio(type):
+    global question_bio, number_b, question_mus, number
+    if type == "Bio":
+     if number_b <= 0:
         painter.clear()
-    while question_bio > 3:
+     while question_bio > 3:
         writer.clear()
         writer.penup()
+        question = biology_list[number_b]
         number_b += 1
-        question = biology_list.pop()
         writer.goto(-400, 200)
         writer.write(question, font=font_four)
         Bio_Questions()
         if question_bio == 4:
             question_bio -= 1
-            wn.onkeypress(score_change, "b")
+            wn.onkeypress(score_change, "a")
+            wn.onkeypress(bio_score, "b")
             wn.onkeypress(bio_score, "c")
-            wn.onkeypress(bio_score, "a")
             wn.onkeypress(bio_score, "d")
         if question_bio == 5:
-            question_bio -= 2
+            question_bio -= 5
             wn.onkeypress(score_change, "c")
-            wn.onkeypress(bio_score, "b")
             wn.onkeypress(bio_score, "a")
+            wn.onkeypress(bio_score, "b")
             wn.onkeypress(bio_score, "d")
         if question_bio == 6:
-            wn.onkeypress(score_change, "a")
+            question_bio -= 3
+            wn.onkeypress(score_change, "b")
             wn.onkeypress(end, "c")
-            wn.onkeypress(end, "b")
+            wn.onkeypress(end, "a")
             wn.onkeypress(end, "d")
+    else:
+        if number <= 0:
+            painter.clear()
+        while question_mus > 3:
+            writer.clear()
+            writer.penup()
+            question = music_list[number]
+            number += 1
+            writer.goto(-400, 200)
+            writer.write(question, font=font_four)
+            Mus_Questions()
+            if question_mus == 4:
+                question_mus -= 1
+                wn.onkeypress(score_change, "a")
+                wn.onkeypress(mus_score, "b")
+                wn.onkeypress(mus_score, "c")
+                wn.onkeypress(mus_score, "d")
+            if question_mus == 5:
+                question_mus -= 5
+                wn.onkeypress(score_change, "b")
+                wn.onkeypress(mus_score, "a")
+                wn.onkeypress(mus_score, "c")
+                wn.onkeypress(mus_score, "d")
+            if question_mus == 6:
+                question_mus -= 3
+                wn.onkeypress(score_change, "c")
+                wn.onkeypress(end, "a")
+                wn.onkeypress(end, "b")
+                wn.onkeypress(end, "d")
 
-
+'''
 def category_Mus():
     global question_mus, number
     if number <= 0:
@@ -82,29 +104,30 @@ def category_Mus():
     while question_mus > 3:
         writer.clear()
         writer.penup()
+        question = music_list[number]
         number += 1
-        question = music_list.pop()
         writer.goto(-400, 200)
         writer.write(question, font=font_four)
         Mus_Questions()
         if question_mus == 4:
             question_mus -= 1
-            wn.onkeypress(score_change, "c")
+            wn.onkeypress(score_change, "a")
             wn.onkeypress(mus_score, "b")
-            wn.onkeypress(mus_score, "a")
+            wn.onkeypress(mus_score, "c")
             wn.onkeypress(mus_score, "d")
         if question_mus == 5:
-            question_mus -= 2
+            question_mus -= 5
             wn.onkeypress(score_change, "b")
             wn.onkeypress(mus_score, "a")
             wn.onkeypress(mus_score, "c")
             wn.onkeypress(mus_score, "d")
         if question_mus == 6:
-            wn.onkeypress(score_change, "a")
-            wn.onkeypress(end, "c")
+            question_mus -= 3
+            wn.onkeypress(score_change, "c")
+            wn.onkeypress(end, "a")
             wn.onkeypress(end, "b")
             wn.onkeypress(end, "d")
-
+'''
 
 def bio_score ():
     global question_bio, number_b
@@ -121,10 +144,10 @@ def mus_score ():
     global question_mus, number
     if number == 1:
         question_mus += 2
-        category_Mus()
+        category_Bio()
     if number == 2:
         question_mus += 3
-        category_Mus()
+        category_Bio()
     else:
         end()
 
@@ -134,13 +157,13 @@ def score_change():
     if score <= 1:
         painter.pensize(5)
         painter.pencolor(choice)
-        painter.goto(270,240)
+        painter.goto(295,240)
         painter.pendown()
         painter.circle(50,360,10)
         painter.penup()
     scorekeeper.penup()
     scorekeeper.pencolor(choice)
-    scorekeeper.goto(250,250)
+    scorekeeper.goto(275,250)
     score += 1
     scorekeeper.clear()
     scorekeeper.write(score, font=font)
@@ -149,18 +172,16 @@ def score_change():
         category_Bio()
     elif number == 1:
         question_mus += 2
-        category_Mus()
+        category_Bio()
     elif number_b == 2:
         question_bio += 3
         category_Bio()
     elif number == 2:
         question_mus += 3
-        category_Mus()
+        category_Bio()
     elif number_b == 3:
         end()
     elif number == 3:
-        end()
-    else:
         end()
 
 
@@ -191,7 +212,7 @@ def end():
     scorekeeper.clear()
     scorekeeper.penup()
     writer.penup()
-    scorekeeper.goto(-110, 100)
+    scorekeeper.goto(-120, 100)
     scorekeeper.write("Your Score: " + str(score) + " / 3", font=font_four)
     if score == 3:
         painter.goto(-300, 200)
@@ -208,7 +229,7 @@ scorekeeper.hideturtle()
 writer.hideturtle()
 make_background(painter)
 wn.onkeypress(category_Bio, "a")
-wn.onkeypress(category_Mus, "b")
+
 
 
 wn.listen()
