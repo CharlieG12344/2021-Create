@@ -13,7 +13,7 @@ font_four = ("Arial", 25, "bold")
 biology_list = ["What are the parts of a cell called?", "What gives blood it's red color?", "How many bones are in the body?"]
 music_list = ["What does a staccato mean?", "How many beats does a whole note have?", "What is the sharp version of D flat?"]
 score = 0
-color_list = ["blue", "white", "black", "gray", "dark blue", "lavender"]
+color_list = ["blue", "white", "black", "gray", "dark blue", "lavender", "purple"]
 question_bio = 4
 question_mus = 4
 number_b = 0
@@ -23,6 +23,8 @@ number = 0
 wn.bgcolor("light blue")
 def make_background(painter):
     global font
+    scorekeeper.hideturtle()
+    writer.hideturtle()
     painter.speed(0)
     painter.hideturtle()
     painter.penup()
@@ -35,9 +37,19 @@ def make_background(painter):
     painter.write("Press b to choose: Music", font=font_two)
 
 # Methods
-def category_Bio(type):
+def choose_class():
+    class type:
+        global type
+        if wn.onkeypress("a"):
+            type == "a"
+            Questions(type)
+        if wn.onkeypress("b"):
+            type == "b"
+            Questions(type)
+
+def Questions (type):
     global question_bio, number_b, question_mus, number
-    if type == "Bio":
+    if type == "a":
      if number_b <= 0:
         painter.clear()
      while question_bio > 3:
@@ -96,47 +108,14 @@ def category_Bio(type):
                 wn.onkeypress(end, "b")
                 wn.onkeypress(end, "d")
 
-'''
-def category_Mus():
-    global question_mus, number
-    if number <= 0:
-        painter.clear()
-    while question_mus > 3:
-        writer.clear()
-        writer.penup()
-        question = music_list[number]
-        number += 1
-        writer.goto(-400, 200)
-        writer.write(question, font=font_four)
-        Mus_Questions()
-        if question_mus == 4:
-            question_mus -= 1
-            wn.onkeypress(score_change, "a")
-            wn.onkeypress(mus_score, "b")
-            wn.onkeypress(mus_score, "c")
-            wn.onkeypress(mus_score, "d")
-        if question_mus == 5:
-            question_mus -= 5
-            wn.onkeypress(score_change, "b")
-            wn.onkeypress(mus_score, "a")
-            wn.onkeypress(mus_score, "c")
-            wn.onkeypress(mus_score, "d")
-        if question_mus == 6:
-            question_mus -= 3
-            wn.onkeypress(score_change, "c")
-            wn.onkeypress(end, "a")
-            wn.onkeypress(end, "b")
-            wn.onkeypress(end, "d")
-'''
-
 def bio_score ():
     global question_bio, number_b
     if number_b == 1:
         question_bio += 2
-        category_Bio()
+        Questions()
     if number_b == 2:
         question_bio += 3
-        category_Bio()
+        Questions()
     else:
         end()
 
@@ -144,10 +123,10 @@ def mus_score ():
     global question_mus, number
     if number == 1:
         question_mus += 2
-        category_Bio()
+        Questions()
     if number == 2:
         question_mus += 3
-        category_Bio()
+        Questions()
     else:
         end()
 
@@ -169,21 +148,20 @@ def score_change():
     scorekeeper.write(score, font=font)
     if number_b == 1:
         question_bio += 2
-        category_Bio()
+        Questions()
     elif number == 1:
         question_mus += 2
-        category_Bio()
+        Questions()
     elif number_b == 2:
         question_bio += 3
-        category_Bio()
+        Questions()
     elif number == 2:
         question_mus += 3
-        category_Bio()
+        Questions()
     elif number_b == 3:
         end()
     elif number == 3:
         end()
-
 
 def Mus_Questions():
     writer.goto(-375,100)
@@ -224,11 +202,12 @@ def end():
         painter.goto(-275, 200)
         painter.write("You got none of the questions rights!", font=font_three)
 
+#Calling Methods
 
-scorekeeper.hideturtle()
-writer.hideturtle()
 make_background(painter)
-wn.onkeypress(category_Bio, "a")
+wn.onkeypress(choose_class, "a")
+wn.onkeypress(choose_class, "b")
+
 
 
 
