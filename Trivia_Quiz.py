@@ -37,19 +37,10 @@ def make_background(painter):
     painter.write("Press b to choose: Music", font=font_two)
 
 # Methods
-def choose_class():
-    class type:
-        global type
-        if wn.onkeypress("a"):
-            type == "a"
-            Questions(type)
-        if wn.onkeypress("b"):
-            type == "b"
-            Questions(type)
 
 def Questions (type):
     global question_bio, number_b, question_mus, number
-    if type == "a":
+    if (type == "a"):
      if number_b <= 0:
         painter.clear()
      while question_bio > 3:
@@ -78,7 +69,7 @@ def Questions (type):
             wn.onkeypress(end, "c")
             wn.onkeypress(end, "a")
             wn.onkeypress(end, "d")
-    else:
+    elif (type == "b"):
         if number <= 0:
             painter.clear()
         while question_mus > 3:
@@ -112,10 +103,10 @@ def bio_score ():
     global question_bio, number_b
     if number_b == 1:
         question_bio += 2
-        Questions()
+        Questions(type)
     if number_b == 2:
         question_bio += 3
-        Questions()
+        Questions(type)
     else:
         end()
 
@@ -123,10 +114,10 @@ def mus_score ():
     global question_mus, number
     if number == 1:
         question_mus += 2
-        Questions()
+        Questions(type)
     if number == 2:
         question_mus += 3
-        Questions()
+        Questions(type)
     else:
         end()
 
@@ -148,16 +139,16 @@ def score_change():
     scorekeeper.write(score, font=font)
     if number_b == 1:
         question_bio += 2
-        Questions()
+        Questions(type)
     elif number == 1:
         question_mus += 2
-        Questions()
+        Questions(type)
     elif number_b == 2:
         question_bio += 3
-        Questions()
+        Questions(type)
     elif number == 2:
         question_mus += 3
-        Questions()
+        Questions(type)
     elif number_b == 3:
         end()
     elif number == 3:
@@ -205,11 +196,7 @@ def end():
 #Calling Methods
 
 make_background(painter)
-wn.onkeypress(choose_class, "a")
-wn.onkeypress(choose_class, "b")
-
-
-
-
+type = input("Choose a Category:")
+Questions(type)
 wn.listen()
 wn.mainloop()
