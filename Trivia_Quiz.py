@@ -144,10 +144,10 @@ def score_change():
         question_mus += 2
         Questions(type)
     elif number_b == 2:
-        question_bio += 3
+        question_bio += 6
         Questions(type)
     elif number == 2:
-        question_mus += 3
+        question_mus += 6
         Questions(type)
     elif number_b == 3:
         end()
