@@ -2,7 +2,6 @@ import turtle as trtl
 import random as rand
 wn = trtl.Screen()
 
-# Variables
 painter = trtl.Turtle()
 writer = trtl.Turtle()
 scorekeeper = trtl.Turtle()
@@ -19,7 +18,6 @@ question_mus = 4
 number_b = 0
 number = 0
 
-# Background Things
 wn.bgcolor("light blue")
 def make_background(painter):
     global font
@@ -35,8 +33,6 @@ def make_background(painter):
     painter.write("Press a to choose: Biology", font=font_two)
     painter.goto(-375,-150)
     painter.write("Press b to choose: Music", font=font_two)
-
-# Methods
 
 def Questions (type):
     global question_bio, number_b, question_mus, number
@@ -98,7 +94,6 @@ def Questions (type):
                 wn.onkeypress(end, "a")
                 wn.onkeypress(end, "b")
                 wn.onkeypress(end, "d")
-
 def bio_score ():
     global question_bio, number_b
     if number_b == 1:
@@ -192,8 +187,6 @@ def end():
     else:
         painter.goto(-275, 200)
         painter.write("You got none of the questions rights!", font=font_three)
-
-#Calling Methods
 
 make_background(painter)
 type = input("Choose a Category:")
